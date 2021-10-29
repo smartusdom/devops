@@ -1,0 +1,19 @@
+---
+- name: web server provisioning
+  hosts: web
+  become: yes
+  tasks:
+    - name: Ensure nginx package is present
+      yum:
+       name: nginx
+       state: present
+  
+    - name: Ensure index.html is present
+      copy:
+       src: index.html
+       dest: /var/www/html
+  
+    - name: Ensure nginx service is started
+      service:
+       name: nginx
+       state: started
